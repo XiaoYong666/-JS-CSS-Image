@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <title>点击图片显示大图</title> 
+  <style>  
+    img{padding:5px;width:100px;height:auto;cursor: pointer;}  
+    #outer{  
+        width:100%;  
+        height:100%;  
+    }  
+    .overlay{  
+        background-color:#000;  
+        opacity: .7;  
+        filter:alpha(opacity=70);  
+        position: fixed;  
+        top:0;  
+        left:0;  
+        width:100%;  
+        height:100%;  
+        z-index: 10;  
+    }  
+    .overlayimg{  
+        position: absolute;  
+        z-index: 11;  
+        left:24%;  
+        top:55px;  
+        width:auto;
+        cursor: pointer;
+    }  
+</style> 
+  <script>  
+function expandPhoto(){  
+    var overlay = document.createElement("div"); //创建div 
+    overlay.setAttribute("id","overlay");  //给div添加id
+    overlay.setAttribute("class","overlay");  //给div添加class
+    document.body.appendChild(overlay);  //向页面中显示此div
+  
+    var img = document.createElement("img");  
+    img.setAttribute("class","overlayimg");  
+    img.src = this.getAttribute("src");  
+    document.getElementById("overlay").appendChild(img);  
+  
+    img.onclick = restore;  
+}  
+function restore(){  
+    document.body.removeChild(document.getElementById("overlay"));  
+    document.body.removeChild(document.getElementById("img"));  
+}  
+window.onload = function(){  
+    var imgs = document.getElementsByTagName("img");//找到所有img  
+    imgs[0].focus();  
+    for(var i = 0;i<imgs.length;i++){  
+        imgs[i].onclick = expandPhoto;  //绑定点击事件，执行方法
+        imgs[i].onkeydown = expandPhoto;  
+    }  
+  
+}  
+</script> 
+ </head> 
+ <body> 
+  <div id="outer"> 
+   <p>点击图片</p> 
+   <img src="image/0.gif" title="点击图片放大缩小" /> 
+   <img src="image/项目管理十大知识领域逻辑关系.png" title="点击图片放大缩小" /> 
+  </div>   
+ </body>
+</html>
